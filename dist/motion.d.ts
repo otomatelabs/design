@@ -1,0 +1,13 @@
+export declare const ease: { smooth: [number, number, number, number]; counter: [number, number, number, number] };
+export declare const duration: { fast: number; base: number; reveal: number; counter: number };
+export declare const stagger: number;
+type Variants = Record<string, Record<string, unknown>>;
+export declare const viewport: { once: boolean; margin: string; amount: number };
+export declare const fadeUp: Variants;
+export declare const fadeUpSmall: Variants;
+export declare const scaleIn: Variants;
+export declare const slideRight: Variants;
+export declare function staggerContainer(step?: number): Variants;
+export declare const hoverLift: Record<string, unknown>;
+export declare const hoverLiftSmall: Record<string, unknown>;
+export declare function reduced(variants: Variants, prefersReduced: boolean | null): Variants;

@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Otomate Design Reference</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../dist/tokens.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+    body {
+      background: var(--background); color: var(--foreground);
+      font-family: var(--ot-font-body); font-size: var(--ot-text-body); line-height: 1.6;
+      transition: background-color 400ms ease, color 300ms ease;
+    }
+    .wrap { max-width: var(--ot-max-width); margin: 0 auto; padding: var(--ot-space-16) var(--ot-space-6); }
+    header { display: flex; justify-content: space-between; align-items: center; gap: var(--ot-space-4); flex-wrap: wrap; }
+    h1, h2, h3 { font-family: var(--ot-font-display); font-weight: 300; }
+    h1 { font-size: var(--ot-text-h1); line-height: 1.15; font-weight: 200; }
+    h2 { font-size: var(--ot-text-h2); line-height: 1.2; margin-bottom: var(--ot-space-6); }
+    section { padding-block: var(--ot-space-16); border-top: 1px solid var(--ot-divider); }
+    .tag {
+      display: inline-block; font-size: var(--ot-text-caption); letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ot-brand-coral); margin-bottom: var(--ot-space-3); font-weight: 500;
+    }
+    .sub { color: var(--ot-text-secondary); max-width: 55ch; }
+    .grid { display: grid; gap: var(--ot-space-4); grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+    .swatch { border: 1px solid var(--ot-border-subtle); border-radius: var(--ot-radius-lg); overflow: hidden; background: var(--ot-surface); }
+    .swatch .chip { height: 64px; }
+    .swatch .meta { padding: var(--ot-space-3); font-size: var(--ot-text-caption); line-height: 1.4; }
+    .swatch code { color: var(--ot-text-secondary); font-family: var(--ot-font-mono); font-size: 0.6875rem; word-break: break-all; }
+    .ratio { font-weight: 500; }
+    .pass { color: var(--ot-success); } .fail { color: var(--ot-danger); }
+    .type-row { display: grid; grid-template-columns: 90px 1fr; gap: var(--ot-space-4); align-items: baseline; padding-block: var(--ot-space-3); border-bottom: 1px solid var(--ot-border-subtle); }
+    .type-row span { color: var(--ot-text-tertiary); font-size: var(--ot-text-caption); }
+    .btn {
+      font: 500 var(--ot-text-body-sm) var(--ot-font-body); padding: var(--ot-space-3) var(--ot-space-6);
+      border-radius: var(--ot-radius-md); border: 0; cursor: pointer;
+      transition: transform var(--ot-duration-fast) var(--ot-ease-smooth), background-color var(--ot-duration-fast) ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+    .btn-primary { background: var(--primary); color: var(--primary-foreground); }
+    .btn-ghost { background: transparent; color: var(--foreground); box-shadow: inset 0 0 0 1.5px var(--ot-border); }
+    .btn-ghost:hover { background: var(--ot-surface); }
+    .row { display: flex; gap: var(--ot-space-4); flex-wrap: wrap; align-items: center; }
+    .card {
+      background: var(--card); border: 1px solid var(--ot-border-subtle); border-radius: var(--ot-radius-card);
+      padding: var(--ot-space-6); transition: transform var(--ot-duration-fast) var(--ot-ease-smooth), border-color 200ms ease;
+    }
+    .card:hover { transform: translateY(-4px); border-color: var(--ot-border); }
+    .cards { display: grid; gap: var(--ot-space-6); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .badge { display: inline-flex; align-items: center; gap: var(--ot-space-2); font-size: var(--ot-text-caption); font-weight: 500;
+      padding: var(--ot-space-1) var(--ot-space-3); border-radius: var(--ot-radius-pill); letter-spacing: 0.05em; text-transform: uppercase; }
+    .badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+    .b-success { color: var(--ot-success); background: var(--ot-success-bg); }
+    .b-warning { color: var(--ot-warning); background: var(--ot-warning-bg); }
+    .b-danger { color: var(--ot-danger); background: var(--ot-danger-bg); }
+    .b-info { color: var(--ot-info); background: var(--ot-info-bg); }
+    .metric { font-family: var(--ot-font-display); font-weight: 200; font-size: var(--ot-text-h1); color: var(--ot-brand-coral); line-height: 1; font-variant-numeric: tabular-nums; }
+    .metric-label { color: var(--ot-text-secondary); font-size: var(--ot-text-body-sm); margin-top: var(--ot-space-2); }
+    [data-reveal] { opacity: 0; transform: translateY(var(--ot-reveal-distance));
+      transition: opacity var(--ot-duration-reveal) var(--ot-ease-smooth), transform var(--ot-duration-reveal) var(--ot-ease-smooth); }
+    [data-reveal].in { opacity: 1; transform: none; }
+    @media (max-width: 768px) { .wrap { padding: var(--ot-space-10) var(--ot-space-4); } .type-row { grid-template-columns: 1fr; gap: 0; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <div class="tag">@otomatelabs/design · v0.1.0</div>
+        <h1>Design reference</h1>
+        <p class="sub">Tokens, contraste y componentes base. Esta página es la referencia contra la que se revisa cada MVP.</p>
+      </div>
+      <button class="btn btn-ghost" id="toggle" type="button">Cambiar tema</button>
+    </header>
+
+    <section>
+      <div class="tag">Color</div>
+      <h2>Paleta del tema actual</h2>
+      <p class="sub" style="margin-bottom: var(--ot-space-6)">Contraste WCAG calculado contra <code>bg</code>. AA texto normal ≥ 4.5.</p>
+      <div class="grid" id="swatches"></div>
+    </section>
+
+    <section>
+      <div class="tag">Tipografía</div>
+      <h2>Sora + Work Sans</h2>
+      <div class="type-row"><span>display</span><div style="font: 200 var(--ot-text-display)/1.1 var(--ot-font-display)">Pedimento</div></div>
+      <div class="type-row"><span>h1</span><div style="font: 200 var(--ot-text-h1)/1.15 var(--ot-font-display)">Automatización con criterio</div></div>
+      <div class="type-row"><span>h2</span><div style="font: 300 var(--ot-text-h2)/1.2 var(--ot-font-display)">Lo que no automatizamos</div></div>
+      <div class="type-row"><span>h3</span><div style="font: 400 var(--ot-text-h3)/1.3 var(--ot-font-display)">Validación previa al envío</div></div>
+      <div class="type-row"><span>body</span><p class="sub">La IA prepara, el humano decide. Cada cifra lleva su fuente y cada supuesto está marcado.</p></div>
+      <div class="type-row"><span>caption</span><div style="font-size: var(--ot-text-caption); letter-spacing: .05em; text-transform: uppercase; color: var(--ot-text-tertiary)">Fuente: DOF · verificado</div></div>
+    </section>
+
+    <section>
+      <div class="tag">Componentes</div>
+      <h2>Base para los MVPs</h2>
+      <div class="row" style="margin-bottom: var(--ot-space-8)">
+        <button class="btn btn-primary" type="button">Validar pedimento</button>
+        <button class="btn btn-ghost" type="button">Ver caso de estudio</button>
+        <span class="badge b-success">Coincide</span>
+        <span class="badge b-warning">Revisar</span>
+        <span class="badge b-danger">Riesgo de multa</span>
+        <span class="badge b-info">Supuesto</span>
+      </div>
+      <div class="cards" data-stagger>
+        <div class="card" data-reveal><div class="metric" data-count="87">0</div><div class="metric-label">% de discrepancias detectadas antes del envío (datos sintéticos)</div></div>
+        <div class="card" data-reveal><div class="metric" data-count="12">0</div><div class="metric-label">minutos por expediente vs 45 manual (SUPUESTO)</div></div>
+        <div class="card" data-reveal><div class="metric" data-count="3">0</div><div class="metric-label">puntos donde decide una persona</div></div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module">
+    import { contrast } from '../src/oklch.mjs';
+    const tokens = await (await fetch('../dist/tokens.json')).json();
+    const root = document.documentElement;
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function renderSwatches() {
+      const theme = root.dataset.theme;
+      const colors = tokens.color[theme];
+      const box = document.getElementById('swatches');
+      box.replaceChildren(...Object.entries(colors).map(([name, value]) => {
+        // Surfaces and borders are not text colors: a ratio against bg would read as a false failure.
+        const isSurface = /^(bg|surface|border|divider|brand-bg|accent-block$)|-bg$/.test(name);
+        const r = contrast(value, colors.bg);
+        const ratio = isSurface
+          ? '<div class="ratio" style="color: var(--ot-text-tertiary)">superficie</div>'
+          : `<div class="ratio ${r >= 4.5 ? 'pass' : 'fail'}">${r.toFixed(2)}:1</div>`;
+        const el = document.createElement('div');
+        el.className = 'swatch';
+        el.innerHTML = `<div class="chip" style="background:${value}"></div>
+          <div class="meta"><div>${name}</div><code>${value}</code>${ratio}</div>`;
+        return el;
+      }));
+    }
+
+    document.getElementById('toggle').addEventListener('click', () => {
+      root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      renderSwatches();
+    });
+    renderSwatches();
+
+    // Reveal + stagger + counters, mirroring the site's animations.js.
+    const stagger = parseInt(tokens.motion.stagger, 10);
+    const counterMs = parseInt(tokens.motion['duration-counter'], 10);
+    function countUp(el) {
+      const target = Number(el.dataset.count);
+      if (reduced) { el.textContent = target; return; }
+      const start = performance.now();
+      const step = (now) => {
+        const p = Math.min((now - start) / counterMs, 1);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 4)));
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        [...e.target.querySelectorAll('[data-reveal]')].forEach((child, i) => {
+          setTimeout(() => {
+            child.classList.add('in');
+            child.querySelectorAll('[data-count]').forEach(countUp);
+          }, reduced ? 0 : i * stagger);
+        });
+        io.unobserve(e.target);
+      }
+    }, { rootMargin: '0px 0px -60px 0px', threshold: 0.1 });
+    document.querySelectorAll('[data-stagger]').forEach((el) => io.observe(el));
+  </script>
+</body>
+</html>

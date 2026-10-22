@@ -1,0 +1,34 @@
+{
+  "name": "@otomatelabs/design",
+  "version": "0.1.0",
+  "description": "Otomate Labs design tokens: CSS variables, Tailwind v4 + shadcn/ui theme and Motion presets.",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/otomatelabs/design.git"
+  },
+  "files": [
+    "dist",
+    "tokens",
+    "DESIGN.md"
+  ],
+  "exports": {
+    "./tokens.css": "./dist/tokens.css",
+    "./legacy.css": "./dist/legacy.css",
+    "./theme.css": "./dist/theme.css",
+    "./tokens.json": "./dist/tokens.json",
+    "./motion": {
+      "types": "./dist/motion.d.ts",
+      "default": "./dist/motion.js"
+    }
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test test/*.test.mjs",
+    "preview": "node scripts/build.mjs && npx --yes serve -l 4400 ."
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
